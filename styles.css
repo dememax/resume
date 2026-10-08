@@ -1,0 +1,137 @@
+/* Maxim P. Dementyev <dememax@hotmail.com>, 2009-2026
+    https://dememax.github.io/resume/ */
+
+body
+{
+    color: black;
+    background: white;
+    max-width: 90ch;
+    margin: 15px auto;
+    padding: 0 15px;
+    font-family: Arial, Helvetica, Verdana, Tahoma, sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    line-height: 1.4;
+    overflow-wrap: break-word;
+}
+
+th
+{
+    text-align: center;
+    vertical-align: top;
+}
+
+td
+{
+    text-align: left;
+    vertical-align: middle;
+}
+
+p
+{
+    margin-top: 0em;
+    margin-left: 2em;
+    margin-right: 0em;
+    margin-bottom: 0em;
+    text-indent: -2em;
+}
+
+hr
+{
+    margin: 0em;
+    padding: 0em;
+}
+
+.LinksBar
+{
+    padding: 0em;
+    text-align: center;
+    font-size: small;
+}
+
+.LinksBarTop
+{
+    margin-top: 1em;
+}
+
+h3, h4
+{
+    font-size: 1em;
+    margin-top: 1.33em;
+    margin-left: 1em;
+    margin-bottom: 10px;
+}
+
+img
+{
+    max-width: 100%;
+    height: auto;
+}
+
+.portrait
+{
+    float: right;
+    margin: 0 0 1em 1em;
+}
+
+.flag
+{
+    vertical-align: middle;
+}
+
+/* Language switch links: never separate a flag from its language name. */
+a[hreflang]
+{
+    white-space: nowrap;
+}
+
+/* Phones: the portrait goes above the text instead of squeezing it into a narrow column;
+   a smaller portrait and title bring "Objective" onto the first screen. */
+@media (max-width: 40em)
+{
+    .portrait
+    {
+        float: none;
+        display: block;
+        width: 160px;
+        margin: 0 auto 1em;
+    }
+
+    h1
+    {
+        font-size: 1.5em;
+    }
+}
+
+/* Paper and PDF: no navigation; the "Updated" date in the footer stays. */
+@media print
+{
+    nav, hr.LinksBar
+    {
+        display: none;
+    }
+
+    body
+    {
+        max-width: none;
+        margin: 0;
+        padding: 0;
+        font-size: 10.5pt;
+    }
+
+    a
+    {
+        color: inherit;
+        text-decoration: none;
+    }
+
+    h2, h3
+    {
+        break-after: avoid;
+    }
+
+    li
+    {
+        break-inside: avoid;
+    }
+}
