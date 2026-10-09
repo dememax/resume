@@ -30,8 +30,8 @@
                     <a href="#summ">Compétences</a>
                 </p>
                 <p class="LinksBar">
-                    <a href="#recent">Expérience&nbsp;récente&nbsp;(depuis&nbsp;2005)</a> : <a href="#NexVision2025">NexVision&nbsp;2</a> | <a href="#Fluendo">Fluendo</a> |
-                    <a href="#Kalyzee">Kalyzée</a> | <a href="#SSI">SuperSonic Imagine</a> | <a href="#NexVision">NexVision</a> |
+                    <a href="#recent">Expérience&nbsp;récente&nbsp;(depuis&nbsp;2005)</a> : <a href="#NexVision2025">NexVision&nbsp;2</a> | <a href="#ESP32">Projet&nbsp;ESP32</a> |
+                    <a href="#Fluendo">Fluendo</a> | <a href="#Kalyzee">Kalyzée</a> | <a href="#SSI">SuperSonic Imagine</a> | <a href="#NexVision">NexVision</a> |
                     <a href="#Wyplay">Wyplay</a>
                 </p>
                 <p class="LinksBar">
@@ -167,8 +167,8 @@
                     <a href="#summ">Compétences</a>
                 </p>
                 <p class="LinksBar">
-                    <a href="#recent">Expérience&nbsp;récente&nbsp;(depuis&nbsp;2005)</a> : <a href="#NexVision2025">NexVision&nbsp;2</a> | <a href="#Fluendo">Fluendo</a> |
-                    <a href="#Kalyzee">Kalyzée</a> | <a href="#SSI">SuperSonic Imagine</a> | <a href="#NexVision">NexVision</a> |
+                    <a href="#recent">Expérience&nbsp;récente&nbsp;(depuis&nbsp;2005)</a> : <a href="#NexVision2025">NexVision&nbsp;2</a> | <a href="#ESP32">Projet&nbsp;ESP32</a> |
+                    <a href="#Fluendo">Fluendo</a> | <a href="#Kalyzee">Kalyzée</a> | <a href="#SSI">SuperSonic Imagine</a> | <a href="#NexVision">NexVision</a> |
                     <a href="#Wyplay">Wyplay</a>
                 </p>
                 <p class="LinksBar">
@@ -226,9 +226,9 @@
                     navigateurs, charge, sanitizers et Valgrind).
                 </li>
                 <li>
-                    Résolution d'un problème de latence constaté sur le terrain dans des scènes chargées : création en une semaine de suites de tests de charge et refonte du
-                    traitement des instantanés de situation (remplacement des recherches linéaires produisant un traitement O(n&sup2;) par un index de pistes à accès O(1)),
-                    réduisant le temps maximal de stabilisation de 402&nbsp;s à 22&nbsp;s.
+                    Lors de l'analyse d'un problème de latence constaté sur le terrain : création en une semaine de suites de tests de charge pour la console opérateur et
+                    limitation de son travail sur les images périmées, réduisant de 402&nbsp;s à 22&nbsp;s le temps de stabilisation du scénario de charge le plus lourd ; ajout
+                    ensuite du rejet des données périmées et d'un index de pistes à accès O(1).
                 </li>
                 <li>
                     Adaptation du dépôt au développement assisté par des agents d'IA (Claude Code, Codex) : contrat explicite pour les agents (développement piloté par les tests,
@@ -237,10 +237,65 @@
                         >check_rst</a
                     >, <a href="https://github.com/dememax/check_formatting">check_formatting</a>).
                 </li>
+                <li>
+                    Participation également à un visuel de casque de pilote en réalité étendue (HMD avec suivi de la tête) sur NVIDIA Orin : extension et débogage d'une
+                    bibliothèque d'émulation V4L2 (périphériques vidéo virtuels via LD_PRELOAD) alimentant GStreamer, et rendu des marqueurs de calibration de la surimpression
+                    directement en RGBA.
+                </li>
             </ul>
             <p>
                 <b>Outils, langages et SDK :</b> C++23, Python (pytest, paho-mqtt, Playwright), GCC, Meson, GStreamer, Yocto, NVIDIA Jetson Orin, MQTT (Mosquitto), JavaScript
                 (VanJS, Canvas HTML5), ASan/UBSan/Valgrind, clang-tidy, Ruff, mypy, Sphinx/reStructuredText, Git, GitLab, Claude Code et Codex
+            </p>
+
+            <h3 id="ESP32">Avril 2026 à septembre 2026</h3>
+
+            <p><b>Société :</b> Dementyev EURL, Marseille, France &mdash; projet de R&amp;D interne</p>
+            <p><b>Poste :</b> Ingénieur logiciel embarqué, projet personnel (seul développeur)</p>
+            <p>
+                <b>Projets, missions :</b> Micrologiciel d'un équipement de supervision réseau connecté en Ethernet : application bare-metal sous Zephyr RTOS en C++ pour le
+                microcontrôleur ESP32 (carte ESP32-ETH02, PHY Ethernet LAN8720A), dialoguant avec un backend REST.
+            </p>
+            <p>
+                <b>Rôle :</b> Réalisation, seul et à partir de zéro, de toute la plateforme du micrologiciel, de la mise en route de la carte jusqu'aux mises à jour à distance
+                validées. L'IoT embarqué sur microcontrôleur n'était pas ma spécialité historique ; le projet a montré que je peux maîtriser rapidement Zephyr et le matériel
+                sous-jacent.
+            </p>
+            <p><b>Principales responsabilités et réalisations :</b></p>
+            <ul>
+                <li>
+                    Mise en route de l'Ethernet de l'ESP32 sous Zephyr et diagnostic de l'échec de l'auto-négociation du LAN8720A avec les box domestiques : délai de 4&nbsp;s face
+                    à jusqu'à 30&nbsp;s de STP, sans relance après ce délai ; contournement en forçant le 100BASE-TX full duplex au démarrage, et signalement au projet Zephyr sur
+                    GitHub d'un plantage lors du rebranchement du câble.
+                </li>
+                <li>
+                    Mise en œuvre de l'enrôlement de l'équipement (modes non enrôlé et enrôlé) et de la communication authentifiée avec le backend en TLS mutuel (mbedTLS), avec le
+                    certificat client et la clé privée de l'équipement conservés dans le stockage flash ZMS, l'heure par SNTP et un client HTTPS durci sur le matériel réel, avec
+                    reprises et attente exponentielle.
+                </li>
+                <li>
+                    Conception et livraison des mises à jour à distance avec MCUboot en trois phases : MCUboot à la place du démarrage simple de Zephyr pour l'ESP32, puis un moteur
+                    de téléchargement, de stockage et de vérification, puis le cycle d'échange, de confirmation et de compte rendu ; après correction de la sémantique de
+                    <code>BOOT_SWAP_TYPE_REVERT</code>, qui faisait revenir une mise à jour sur elle-même, le cycle complet à deux démarrages a fonctionné de bout en bout sur la
+                    carte réelle.
+                </li>
+                <li>
+                    Planification de la flash et de la mémoire dans les limites de l'ESP32 : table des partitions avec les emplacements MCUboot et le stockage ZMS, modèle de coût
+                    de la flash, mémoire du tas et de TLS mesurée par mode de démarrage, piles des threads et tampons statiques.
+                </li>
+                <li>
+                    Diagnostic d'un bogue de l'analyseur JSON de Zephyr (toute valeur <code>null</code> fait échouer l'objet entier), déclenché par une évolution du backend, et
+                    correctif d'une ligne dans l'arbre Zephyr local, avec un test unitaire qui reproduit l'échec.
+                </li>
+                <li>
+                    Mise en place d'une pyramide de tests à trois niveaux : 102 tests unitaires sur le simulateur natif de Zephyr (native_sim), tests d'intégration contre un
+                    backend simulé doté de sa propre PKI de test, et tests de fumée, de mise à jour et d'échange sur la carte réelle via UART (pytest, pyserial) ; documentation
+                    sous Sphinx de l'architecture, de la mémoire, des certificats, de l'API de l'équipement, de la conception des mises à jour et du processus de livraison.
+                </li>
+            </ul>
+            <p>
+                <b>Outils, langages et SDK :</b> C++, Zephyr RTOS, west, CMake, ESP32, MCUboot, ZMS, mbedTLS, native_sim, Python (pytest, pyserial), Sphinx/reStructuredText, Git,
+                Claude Code
             </p>
 
             <h3 id="Fluendo">Mars 2023 à Septembre 2024</h3>
@@ -365,8 +420,8 @@
                     <a href="#summ">Compétences</a>
                 </p>
                 <p class="LinksBar">
-                    <a href="#recent">Expérience&nbsp;récente&nbsp;(depuis&nbsp;2005)</a> : <a href="#NexVision2025">NexVision&nbsp;2</a> | <a href="#Fluendo">Fluendo</a> |
-                    <a href="#Kalyzee">Kalyzée</a> | <a href="#SSI">SuperSonic Imagine</a> | <a href="#NexVision">NexVision</a> |
+                    <a href="#recent">Expérience&nbsp;récente&nbsp;(depuis&nbsp;2005)</a> : <a href="#NexVision2025">NexVision&nbsp;2</a> | <a href="#ESP32">Projet&nbsp;ESP32</a> |
+                    <a href="#Fluendo">Fluendo</a> | <a href="#Kalyzee">Kalyzée</a> | <a href="#SSI">SuperSonic Imagine</a> | <a href="#NexVision">NexVision</a> |
                     <a href="#Wyplay">Wyplay</a>
                 </p>
                 <p class="LinksBar">
@@ -592,8 +647,8 @@
                     <a href="#summ">Compétences</a>
                 </p>
                 <p class="LinksBar">
-                    <a href="#recent">Expérience&nbsp;récente&nbsp;(depuis&nbsp;2005)</a> : <a href="#NexVision2025">NexVision&nbsp;2</a> | <a href="#Fluendo">Fluendo</a> |
-                    <a href="#Kalyzee">Kalyzée</a> | <a href="#SSI">SuperSonic Imagine</a> | <a href="#NexVision">NexVision</a> |
+                    <a href="#recent">Expérience&nbsp;récente&nbsp;(depuis&nbsp;2005)</a> : <a href="#NexVision2025">NexVision&nbsp;2</a> | <a href="#ESP32">Projet&nbsp;ESP32</a> |
+                    <a href="#Fluendo">Fluendo</a> | <a href="#Kalyzee">Kalyzée</a> | <a href="#SSI">SuperSonic Imagine</a> | <a href="#NexVision">NexVision</a> |
                     <a href="#Wyplay">Wyplay</a>
                 </p>
                 <p class="LinksBar">

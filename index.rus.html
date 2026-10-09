@@ -31,8 +31,8 @@
                 </p>
                 <p class="LinksBar">
                     <a href="#recent">Опыт&nbsp;работы:</a>
-                    <a href="#NexVision2025">NexVision&nbsp;2</a> | <a href="#Fluendo">Fluendo</a> | <a href="#Kalyzee">Kalyzée</a> | <a href="#SSI">SuperSonic Imagine</a> |
-                    <a href="#NexVision">NexVision</a> |
+                    <a href="#NexVision2025">NexVision&nbsp;2</a> | <a href="#ESP32">Проект&nbsp;ESP32</a> | <a href="#Fluendo">Fluendo</a> | <a href="#Kalyzee">Kalyzée</a> |
+                    <a href="#SSI">SuperSonic Imagine</a> | <a href="#NexVision">NexVision</a> |
                     <a href="#Wyplay">Wyplay</a>
                 </p>
                 <p class="LinksBar">
@@ -163,8 +163,8 @@
                 </p>
                 <p class="LinksBar">
                     <a href="#recent">Опыт&nbsp;работы:</a>
-                    <a href="#NexVision2025">NexVision&nbsp;2</a> | <a href="#Fluendo">Fluendo</a> | <a href="#Kalyzee">Kalyzée</a> | <a href="#SSI">SuperSonic Imagine</a> |
-                    <a href="#NexVision">NexVision</a> |
+                    <a href="#NexVision2025">NexVision&nbsp;2</a> | <a href="#ESP32">Проект&nbsp;ESP32</a> | <a href="#Fluendo">Fluendo</a> | <a href="#Kalyzee">Kalyzée</a> |
+                    <a href="#SSI">SuperSonic Imagine</a> | <a href="#NexVision">NexVision</a> |
                     <a href="#Wyplay">Wyplay</a>
                 </p>
                 <p class="LinksBar">
@@ -221,9 +221,9 @@
                     санитайзеры, Valgrind).
                 </li>
                 <li>
-                    Устранение задержки отображения, проявлявшейся в полевых условиях при насыщенной обстановке: за неделю созданы наборы нагрузочных тестов и переработана
-                    обработка снимков обстановки (линейный поиск, дававший сложность O(n&sup2;), заменён индексом треков с доступом за O(1)), что сократило максимальное время
-                    стабилизации с 402&nbsp;с до 22&nbsp;с.
+                    При расследовании задержки отображения, проявлявшейся в полевых условиях, за неделю с нуля созданы наборы нагрузочных тестов операторской консоли и ограничена
+                    её работа с устаревшими кадрами, что сократило время стабилизации самого тяжёлого нагрузочного сценария с 402&nbsp;с до 22&nbsp;с; затем добавлены отбрасывание
+                    устаревших данных и индекс треков с доступом за O(1).
                 </li>
                 <li>
                     Адаптация репозитория к разработке с ИИ-агентами (Claude Code, Codex): явный контракт для агентов (строгий TDD с раздельными коммитами RED/GREEN, проверка того,
@@ -231,10 +231,62 @@
                     инструмента контроля с открытым исходным кодом, автором которых я являюсь (<a href="https://github.com/dememax/check_rst">check_rst</a>,
                     <a href="https://github.com/dememax/check_formatting">check_formatting</a>).
                 </li>
+                <li>
+                    Также работа над шлемом пилота с дисплеем расширенной реальности (HMD с отслеживанием положения головы) на NVIDIA Orin: доработка и отладка библиотеки эмуляции
+                    V4L2 (виртуальные видеоустройства через LD_PRELOAD), питающей GStreamer, и отрисовка калибровочных маркеров наложения напрямую в RGBA.
+                </li>
             </ul>
             <p>
                 <b>Инструменты, языки и SDK:</b> C++23, Python (pytest, paho-mqtt, Playwright), GCC, Meson, GStreamer, Yocto, NVIDIA Jetson Orin, MQTT (Mosquitto), JavaScript
                 (VanJS, HTML5 Canvas), ASan/UBSan/Valgrind, clang-tidy, Ruff, mypy, Sphinx/reStructuredText, Git, GitLab, Claude Code и Codex
+            </p>
+
+            <h3 id="ESP32">Апрель 2026 - сентябрь 2026</h3>
+
+            <p><b>Компания:</b> Dementyev EURL, Марсель, Франция &mdash; собственный исследовательский проект</p>
+            <p><b>Должность:</b> Разработчик встраиваемого ПО, личный проект (единственный разработчик)</p>
+            <p>
+                <b>Проекты, продукты:</b> Прошивка устройства мониторинга сети с подключением по Ethernet: bare-metal-приложение на Zephyr RTOS на C++ для микроконтроллера ESP32
+                (плата ESP32-ETH02, Ethernet PHY LAN8720A), работающее с REST-бэкендом.
+            </p>
+            <p>
+                <b>Роль:</b> Вся платформа прошивки создана в одиночку и с нуля &mdash; от запуска платы до проверенного обновления по сети. Встраиваемый IoT на микроконтроллерах
+                не был моей исторической специализацией; проект показал, что я быстро осваиваю Zephyr и аппаратную часть под ним.
+            </p>
+            <p><b>Основные обязанности и достижения:</b></p>
+            <ul>
+                <li>
+                    Запуск Ethernet на ESP32 под Zephyr и диагностика сбоя автосогласования LAN8720A с домашними роутерами: таймаут 4&nbsp;с против до 30&nbsp;с у STP и отсутствие
+                    повторной попытки после таймаута; обход через принудительный режим 100BASE-TX full duplex при загрузке и вопрос в проект Zephyr на GitHub о падении при
+                    переподключении кабеля.
+                </li>
+                <li>
+                    Реализация регистрации устройства (режимы до и после регистрации) и аутентифицированного обмена с бэкендом по взаимному TLS (mbedTLS): клиентский сертификат и
+                    закрытый ключ устройства хранятся во flash-хранилище ZMS, время &mdash; по SNTP, HTTPS-клиент доведён на реальном железе, с повторами и экспоненциальной
+                    задержкой.
+                </li>
+                <li>
+                    Проектирование и реализация обновления по сети с MCUboot в три этапа: MCUboot вместо простого загрузчика Zephyr для ESP32, затем движок скачивания, сохранения и
+                    проверки, затем цикл подмены, подтверждения и отчёта; после исправления семантики <code>BOOT_SWAP_TYPE_REVERT</code>, из-за которой обновление откатывалось само
+                    на себя, полный двухзагрузочный цикл прошёл от начала до конца на реальной плате.
+                </li>
+                <li>
+                    Планирование flash-памяти и ОЗУ в рамках ограничений ESP32: таблица разделов со слотами MCUboot и хранилищем ZMS, модель стоимости flash, память кучи и TLS,
+                    измеренная по режимам загрузки, стеки потоков и статические буферы.
+                </li>
+                <li>
+                    Диагностика ошибки JSON-парсера Zephyr (любое значение <code>null</code> делает разбор всего объекта неуспешным), проявившейся после изменения бэкенда, и
+                    исправление в одну строку в локальном дереве Zephyr с модульным тестом, воспроизводящим сбой.
+                </li>
+                <li>
+                    Трёхуровневая пирамида тестов: 102 модульных теста на нативном симуляторе Zephyr (native_sim), интеграционные тесты против имитации бэкенда с собственной
+                    тестовой PKI, дымовые тесты, тесты обновления и подмены на реальной плате через UART (pytest, pyserial); документация архитектуры, памяти, сертификатов, API
+                    устройства, проекта обновлений и процесса выпуска в Sphinx.
+                </li>
+            </ul>
+            <p>
+                <b>Инструменты, языки и SDK:</b> C++, Zephyr RTOS, west, CMake, ESP32, MCUboot, ZMS, mbedTLS, native_sim, Python (pytest, pyserial), Sphinx/reStructuredText, Git,
+                Claude Code
             </p>
 
             <h3 id="Fluendo">Март 2023 - Сентябрь 2024</h3>
@@ -352,8 +404,8 @@
                 </p>
                 <p class="LinksBar">
                     <a href="#recent">Опыт&nbsp;работы:</a>
-                    <a href="#NexVision2025">NexVision&nbsp;2</a> | <a href="#Fluendo">Fluendo</a> | <a href="#Kalyzee">Kalyzée</a> | <a href="#SSI">SuperSonic Imagine</a> |
-                    <a href="#NexVision">NexVision</a> |
+                    <a href="#NexVision2025">NexVision&nbsp;2</a> | <a href="#ESP32">Проект&nbsp;ESP32</a> | <a href="#Fluendo">Fluendo</a> | <a href="#Kalyzee">Kalyzée</a> |
+                    <a href="#SSI">SuperSonic Imagine</a> | <a href="#NexVision">NexVision</a> |
                     <a href="#Wyplay">Wyplay</a>
                 </p>
                 <p class="LinksBar">
@@ -576,8 +628,8 @@
                 </p>
                 <p class="LinksBar">
                     <a href="#recent">Опыт&nbsp;работы:</a>
-                    <a href="#NexVision2025">NexVision&nbsp;2</a> | <a href="#Fluendo">Fluendo</a> | <a href="#Kalyzee">Kalyzée</a> | <a href="#SSI">SuperSonic Imagine</a> |
-                    <a href="#NexVision">NexVision</a> |
+                    <a href="#NexVision2025">NexVision&nbsp;2</a> | <a href="#ESP32">Проект&nbsp;ESP32</a> | <a href="#Fluendo">Fluendo</a> | <a href="#Kalyzee">Kalyzée</a> |
+                    <a href="#SSI">SuperSonic Imagine</a> | <a href="#NexVision">NexVision</a> |
                     <a href="#Wyplay">Wyplay</a>
                 </p>
                 <p class="LinksBar">
